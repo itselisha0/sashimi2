@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>But Wait... There's More!</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  user-select: none;
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ffd6e8,#ffc2d1,#ffe5ec);
+  overflow-x:hidden;
+  color:white;
+}
+
+/* ---------------- LOADER ---------------- */
+
+#loader{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(135deg,#ffc2d1,#ffe5ec);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:999999;
+  transition:opacity 1s ease;
+}
+
+.loader-heart{
+  font-size:3rem;
+  animation:pulse 1.2s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.3);}
+  100%{transform:scale(1);}
+}
+
+.progress-bar{
+  width:220px;
+  height:6px;
+  background:#ffffff55;
+  border-radius:20px;
+  margin-top:20px;
+  overflow:hidden;
+}
+
+.progress{
+  height:100%;
+  width:0%;
+  background:white;
+  animation:load 3s forwards;
+}
+
+@keyframes load{
+  to{width:100%;}
+}
+
+/* ---------------- BLOBS ---------------- */
+
+.blob{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(100px);
+  opacity:0.4;
+  z-index:0;
+}
+
+.blob1{width:350px;height:350px;background:#ffb3c6;top:-120px;left:-120px;}
+.blob2{width:400px;height:400px;background:#ffc2d1;bottom:-150px;right:-150px;}
+
+/* ---------------- MAIN CONTENT ---------------- */
+
+.container{
+  padding:70px 20px;
+  text-align:center;
+  position:relative;
+  z-index:1;
+}
+
+h1{
+  font-family:'Playfair Display',serif;
+  font-size:3.5rem;
+  margin-bottom:10px;
+  animation:fadeDown 1.5s ease;
+}
+
+.subtitle{
+  margin-bottom:40px;
+  opacity:0.9;
+  animation:fadeIn 2s ease;
+}
+
+@keyframes fadeDown{
+  from{opacity:0;transform:translateY(-30px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+@keyframes fadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
+/* ---------------- GALLERY ---------------- */
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:25px;
+}
+
+.card{
+  border-radius:25px;
+  overflow:hidden;
+  cursor:pointer;
+  position:relative;
+  transition:0.4s;
+}
+
+.card img{
+  width:100%;
+  height:260px;
+  object-fit:cover;
+  border-radius:25px;
+  transition:0.4s ease;
+}
+
+.card:hover img{
+  transform:scale(1.08);
+  filter:brightness(1.1);
+}
+
+.card::after{
+  content:"Tap to open 💕";
+  position:absolute;
+  bottom:15px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(255,255,255,0.3);
+  backdrop-filter:blur(10px);
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:0.8rem;
+  opacity:0;
+  transition:0.3s;
+}
+
+.card:hover::after{
+  opacity:1;
+}
+
+/* ---------------- MODAL ---------------- */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(255,182,193,0.85);
+  backdrop-filter:blur(15px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  padding:20px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.4s ease;
+  z-index:99999;
+}
+
+.modal.active{
+  opacity:1;
+  pointer-events:all;
+}
+
+.modal-content{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  animation:pop 0.4s ease;
+}
+
+.modal img{
+  max-width:90vw;
+  max-height:60vh;
+  border-radius:25px;
+  box-shadow:0 0 50px rgba(255,255,255,0.9);
+}
+
+.message-box{
+  margin-top:25px;
+  background:rgba(255,255,255,0.25);
+  backdrop-filter:blur(20px);
+  padding:20px 30px;
+  border-radius:25px;
+  font-size:1.1rem;
+  max-width:500px;
+  text-align:center;
+  box-shadow:0 0 40px rgba(255,255,255,0.6);
+  animation:fadeUp 0.5s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(0.7);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+
+@keyframes fadeUp{
+  from{transform:translateY(20px);opacity:0;}
+  to{transform:translateY(0);opacity:1;}
+}
+
+.close{
+  position:absolute;
+  top:25px;
+  right:30px;
+  font-size:2rem;
+  cursor:pointer;
+  color:white;
+}
+
+@media(max-width:600px){
+  h1{font-size:2.5rem;}
+  .card img{height:200px;}
+}
+</style>
+<audio autoplay loop>
+  <source src="Valentine Flute.wav" type="audio/wav" />
+</audio>
+</head>
+
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-heart">💗</div>
+  <div class="progress-bar">
+    <div class="progress"></div>
+  </div>
+</div>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+
+<div class="container">
+  <h1>You Thought It Was Over?</h1>
+  <p class="subtitle">Well guess what... it's not! Here are 19 of my favorite pictures since you're 19 now! 🤍</p>
+  <div class="gallery" id="gallery"></div>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <span class="close" onclick="closeModal()">✕</span>
+  <div class="modal-content">
+    <img id="modalImg">
+    <div class="message-box" id="modalText"></div>
+  </div>
+</div>
+
+<script>
+
+/* LOADER */
+window.onload = function(){
+  setTimeout(()=>{
+    document.getElementById("loader").style.opacity="0";
+    setTimeout(()=>{
+      document.getElementById("loader").style.display="none";
+    },1000);
+  },3000);
+};
+
+const messages=[
+"You probably wasn't expecting this but hah there's more!",
+"This is my way of being with you even if I'm not there physically. I still give you my all",
+"Oh my... it's my two favorite treats in one picture!",
+"This picture is so cute from our early days",
+"I look a little ugly in this but you look so pretty... that's all that matters",
+"We NEED to come back here",
+"I love how we can take so many goofy pictures as well",
+"Valentine's Day was so sweet :)",
+"In N Out is tradition",
+"Heh...",
+"I like this picture a lot it's so funny",
+"POV: about to meet my parents for the first time...",
+"You are so beautiful in this picture awww",
+"And in this one you're so cute!",
+"You're like a little pufferfish in this I love this expression you make it's so cute",
+"Nice jacket you got there",
+"Oh jeez look at how short my hair is in this",
+"Aww I really like this one",
+"Yeah don't ask about this please..."
+];
+
+const gallery=document.getElementById("gallery");
+const modal=document.getElementById("modal");
+
+for(let i=1;i<=19;i++){
+  const card=document.createElement("div");
+  card.classList.add("card");
+  card.innerHTML=`<img src="images/photo${i}.jpg" alt="Photo ${i}">`;
+  card.addEventListener("click",()=>{
+    openModal(`images/photo${i}.jpg`,messages[i-1]);
+  });
+  gallery.appendChild(card);
+}
+
+function openModal(src,text){
+  document.getElementById("modalImg").src=src;
+  document.getElementById("modalText").innerText=text;
+  modal.classList.add("active");
+}
+
+function closeModal(){
+  modal.classList.remove("active");
+}
+
+modal.addEventListener("click",function(e){
+  if(e.target===modal){
+    closeModal();
+  }
+});
+
+</script>
+
+</body>
+</html>
