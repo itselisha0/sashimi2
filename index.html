@@ -234,8 +234,8 @@ h1{
   .card img{height:200px;}
 }
 </style>
-<audio autoplay loop>
-  <source src="Valentine Flute (1).wav" type="audio/wav" />
+<audio id="bgMusic" loop>
+  <source src="Valentine Flute (1).wav" type="audio/wav">
 </audio>
 </head>
 
@@ -307,9 +307,9 @@ const modal=document.getElementById("modal");
 for(let i=1;i<=19;i++){
   const card=document.createElement("div");
   card.classList.add("card");
-  card.innerHTML=`<img src="photo${i}.jpg" alt="Photo ${i}">`;
+  card.innerHTML=`<img src="images/photo${i}.jpg" alt="Photo ${i}">`;
   card.addEventListener("click",()=>{
-    openModal(`photo${i}.jpg`,messages[i-1]);
+    openModal(`images/photo${i}.jpg`,messages[i-1]);
   });
   gallery.appendChild(card);
 }
@@ -329,6 +329,17 @@ modal.addEventListener("click",function(e){
     closeModal();
   }
 });
+
+const music = document.getElementById("bgMusic");
+
+function startMusic() {
+  music.play().catch(() => {});
+  document.removeEventListener("click", startMusic);
+  document.removeEventListener("touchstart", startMusic);
+}
+
+document.addEventListener("click", startMusic);
+document.addEventListener("touchstart", startMusic);
 
 </script>
 
