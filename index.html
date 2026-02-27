@@ -309,7 +309,7 @@ for(let i=1;i<=19;i++){
   card.classList.add("card");
   card.innerHTML=`<img src="photo${i}.jpg" alt="Photo ${i}">`;
   card.addEventListener("click",()=>{
-    openModal(`images/photo${i}.jpg`,messages[i-1]);
+    openModal(`photo${i}.jpg`,messages[i-1]);
   });
   gallery.appendChild(card);
 }
